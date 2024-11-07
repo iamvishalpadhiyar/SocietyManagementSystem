@@ -1,0 +1,112 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+    <!-- Header -->
+    <!-- Header -->
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Secretary</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+              <li class="breadcrumb-item"><a href="#">Add Member</a></li>
+            </ol>
+          </nav>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <br><br><br><br><br><br><br>
+    <div class="container mt--8 pb-5">
+      <!-- Table -->
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card bg-secondary border-0">
+            
+            
+              <p style="background-color: rgb(233, 120, 105); color: blue;">{{msg}}</p>
+              <form role="form" action="{% url 'addmember' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <br><input class="form-control" name="name" placeholder="Name" type="text" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" name="email" placeholder="Email" type="email" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-mobile"></i></span>
+                    </div>
+                    <input class="form-control" name="mobile no" placeholder="Mobile No" type="number" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      </div>
+                      <input class="form-control" name="password" placeholder="Password" type="password" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-book-bookmark"></i></span>
+                      </div>
+                      <input class="form-control" name="flat" placeholder="Flat No." type="number" required>
+                    </div>
+                  </div>
+                <div class="form-group">
+                  <div class="input-group input-group-merge input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-collection"></i></span>
+                    </div>
+                    <input class="form-control" name="address" placeholder="Address" type="text" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-merge input-group-alternative">    
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-credit-card"></i></span>
+                      </div>
+                      <input class="form-control" name="adharcard" placeholder="Adhar Card No." type="number" required>
+                    </div>
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Picture</label>
+                        <input type="file"  class="form-control" name="pic" >
+                      </div>
+                  </div>
+
+                  
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary mt-4">Add Member</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+  

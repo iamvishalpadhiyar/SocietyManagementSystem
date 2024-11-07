@@ -1,0 +1,75 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Secretary</h6>
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                  <li class="breadcrumb-item"><a href="{% url 'index' %}"><i class="fas fa-home"></i></a></li>
+                  <li class="breadcrumb-item"><a href="#">All-Notice</a></li>
+                </ol>
+              </nav>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Notice Detail</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">Notice Title</th>
+                    <th scope="col" class="sort" data-sort="name">Notice Type</th>
+                    <th scope="col" class="sort" data-sort="budget">Notice description</th>
+                    <th scope="col" class="sort" data-sort="status">Notice Time</th>
+                    <th scope="col">Notice By</th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for notice in notices %}
+                  <tr>
+                    <th scope="row">
+                      {{notice.ntitle}}
+                    </th>
+                    <td >
+                      {{notice.ntype}}
+                    </td>
+                    <td >
+                      {{notice.ndes}}
+                    </td>
+                    <td >
+                      {{notice.ntime}}
+                    </td>
+                    <td >
+                      {{notice.nsendby.name}}
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                                
+               </tbody>
+              </table>
+            </div>
+            <!-- Card footer -->
+            
+          </div>
+        </div>
+      </div>
+     
+      
+     {% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'header.html' %} {% load static %} {% block content %}
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Secretary</h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="#"><i class="fas fa-home"></i></a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="#">Complains Report</a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div style="display: flex">
+          <div class="card-header border-0">
+            <h3 class="mb-0">Complains Report</h3>
+          </div>
+          <div class="col text-right">
+            <button
+              onclick="Export()"
+              id="export_maintenance_report"
+              style="margin: 20px"
+              class="btn btn-sm btn-primary"
+            >
+              Export Excel
+            </button>
+             <button
+              onclick="ExportPDF()"
+              style="margin: 20px"
+              class="btn btn-sm btn-primary"
+            >
+              Export PDF
+            </button>
+          </div>
+        </div>
+        <!-- Light table -->
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Complain Title</th>
+                <th scope="col">Complain By</th>
+                <th scope="col">Complain Type</th>
+                <th scope="col">Complain Date</th>
+                <th scope="col">Complain Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for complain in complains %}
+              <tr>
+                <th scope="row">{{complain.ctitle}}</th>
+                <td>{{complain.cby.name}}</td>
+                <td>{{complain.ctypes}}</td>
+                <td>{{complain.ctime}}</td>
+                {% if complain.status %}
+                <td style="color: green">Solve</td>
+                {% else %}
+                <td style="color: red">Pending</td>
+                {% endif %}
+                </td>
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p class="end_of_table"></p>
+        <!-- Card footer -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function Export() {
+      var form = $("<form></form>")
+        .attr("action", "/Sec/export_complains_report/")
+        .attr("method", "post");
+      form.append(`{% csrf_token %}`);
+      form.appendTo("body").submit().remove();
+    }
+     function ExportPDF() {
+      var csrftoken = '{{ csrf_token }}';
+      $.ajax({
+          url: '/Sec/export_complains_report_pdf/',
+          type: 'POST',
+          contentType: 'application/json',
+          headers: {
+                'X-CSRFToken': csrftoken // Include CSRF token in headers
+          },
+          success: function(res) {
+              var blob = new Blob([res], {type: 'application/pdf'});
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', `Complains report.pdf`);
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          },
+          error: function(xhr, status, error) {
+              console.error("Error:", error);
+          }
+      });
+    }
+  </script>
+  {% endblock %}
+</div>

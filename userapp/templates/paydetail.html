@@ -1,0 +1,103 @@
+{% extends 'uheader.html' %} 
+{% load static %}
+{% block content %}
+ <!-- Header -->
+    <!-- Header -->
+  
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+              <h6 class="h2 text-white d-inline-block mb-0">Member</h6>
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i>Maintenence</a></li>
+                  <li class="breadcrumb-item"><a href="#">Pay Maintenance</a></li>
+                </ol>
+              </nav>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Page content -->
+    <br><br><br>
+    <!-- <br><br><br><br><br> -->
+    
+    <style>
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+      }
+      
+      .price {
+        color: grey;
+        font-size: 22px;
+      }
+      
+      .card button {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+      }
+      
+      .card button:hover {
+        opacity: 0.7;
+      }
+      </style>
+      
+      <h2 style="text-align:center">Confirm Your Maintenance Detail</h2>
+      
+      <div class="card">
+        <!-- <img src="/w3images/jeans3.jpg" alt="Denim Jeans" style="width:100%"> -->
+        <h1>Mamber: {{pay_d.user}}</h1>
+        <h2>Maintenance Date: {{pay_d.pdate}}</h2>
+        <p class="price">Amount: {{pay_d.pamount}}</p>
+        <p><button class="btn" id="pay-btn">Pay Maintenance</button></p>
+      </div>
+      
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      <script>
+        var options = {
+           
+          // Enter the Key ID generated from the Dashboard
+          key: "{{ razorpay_merchant_key }}",
+           
+          // Amount is in currency subunits.
+          // Default currency is INR. Hence,
+          // 50000 refers to 50000 paise
+          amount: "{{ razorpay_amount }}",
+          currency: "{{ currency }}",
+           
+          // Your/store name.
+          name: "Dj Razorpay",
+           
+          // Pass the `id` obtained in the response of Step 1
+          order_id: "{{ razorpay_order_id }}",
+          callback_url: "{{ callback_url }}",
+        };
+         
+        // initialise razorpay with the options.
+        var rzp1 = new Razorpay(options);
+         
+        // add event listener to the payment button.
+        document.getElementById("pay-btn").onclick = function (e) {
+          rzp1.open();
+          e.preventDefault();
+        };
+      </script>
+
+  {% endblock %}
